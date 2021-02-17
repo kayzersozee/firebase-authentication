@@ -1,6 +1,8 @@
 import AuthUserContext from "./context";
 import withAuthentication from "./withAuthentication";
-export { AuthUserContext, withAuthentication };
+import withAuthorization from "./withAuthorization";
+
+export { AuthUserContext, withAuthentication, withAuthorization };
 
 const Session = () => (
   <div>
