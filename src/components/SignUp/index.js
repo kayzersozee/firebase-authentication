@@ -7,7 +7,7 @@ import { compose } from "recompose";
 const SignUpPage = () => (
   <div>
     <h1>SignUp</h1>
-     <SignUpForm />
+    <SignUpForm />
   </div>
 );
 
@@ -24,26 +24,32 @@ class SignUpFormBase extends Component {
     super(props);
     this.state = { ...INITIAL_STATE };
   }
-  onSubmit = event => {const { username, email, passwordOne } = this.state;
-  this.props.firebase
-    .doCreateUserWithEmailAndPassword(email, passwordOne)
-    .then((authUser) => {
-      this.setState({ ...INITIAL_STATE });
-      this.props.history.push(ROUTES.HOME);
-    })
-    .catch((error) => {
-      this.setState({ error });
-    });
-  event.preventDefault();};
-  onChange = event => {this.setState({ [event.target.name]: event.target.value });};
-  render() {
-      const { username, email, passwordOne, passwordTwo, error } = this.state;
 
-      const isInvalid =
-        passwordOne !== passwordTwo ||
-        passwordOne === "" ||
-        email === "" ||
-        username === "";
+  onSubmit = (event) => {
+    const { username, email, passwordOne } = this.state;
+
+    this.props.firebase
+      .doCreateUserWithEmailAndPassword(email, passwordOne)
+      .then((authUser) => {
+        this.setState({ ...INITIAL_STATE });
+        this.props.history.push(ROUTES.HOME);
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
+    event.preventDefault();
+  };
+  onChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  render() {
+    const { username, email, passwordOne, passwordTwo, error } = this.state;
+
+    const isInvalid =
+      passwordOne !== passwordTwo ||
+      passwordOne === "" ||
+      email === "" ||
+      username === "";
     return (
       <form onSubmit={this.onSubmit}>
         <input
